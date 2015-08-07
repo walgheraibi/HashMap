@@ -10,7 +10,7 @@ public class hashExample {
 		Scanner keyboard = new Scanner(System.in);
 		String choice = "y";
 		String filename = (System.getProperty("user.dir") + File.separatorChar +"mynumbers.txt");
-		n = initializedHashMap(n);
+		n = readLines(new File(filename), n);
 		while (choice.equalsIgnoreCase("y")) {
 	
 			
@@ -29,29 +29,35 @@ public class hashExample {
 		keyboard.close();
 		try {
 			readLines(new File(filename),n);
-
-	    	  System.out.println("The HashMap: " +n);
-			
-		} catch (Exception e) {
+				for(Integer key: n.keySet())
+					{
+						System.out.println(" " +key + "	" + n.get(key));
+					}		
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-	 public static HashMap<Integer, String> readLines(File file, HashMap<Integer, String> hashmap) throws Exception {
+		
+	 public static HashMap<Integer, String> readLines(File file, HashMap<Integer, String> hashmap) {
 	      if (!file.exists()) {
 	          return hashmap;
 	      }
+	      try
+	      {
 	      BufferedReader reader = new BufferedReader(new FileReader(file));
 	      String line = reader.readLine();
 	      while (line != null) {
 	    	  
 	    	  String [] Key_value_pair = line.split("\t");
 	    	  hashmap.put(Integer.parseInt(Key_value_pair[0]), Key_value_pair[1]);
-	    	  System.out.println("read line from file: Key:" +Key_value_pair[0] +" Value"+Key_value_pair[1]);
 	    	  line = reader.readLine();
 	      }
 	      reader.close();
+	      }
+	      catch (Exception e) {
+				e.printStackTrace();
+			}
 	      return hashmap;
 	  }
 	 
@@ -71,7 +77,7 @@ public class hashExample {
 			}
 			return n;
 		}
-	public static HashMap<Integer, String> initializedHashMap(HashMap<Integer, String> n)
+/*	public static HashMap<Integer, String> initializedHashMap(HashMap<Integer, String> n)
 	{
 		n.put(0, "Zero");
 		n.put(1, "One");
@@ -87,5 +93,5 @@ public class hashExample {
 		
 		return n;
 	}
-	
+	*/
 }
